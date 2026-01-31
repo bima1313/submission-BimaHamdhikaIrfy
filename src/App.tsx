@@ -3,7 +3,7 @@ import "./App.css";
 import Menu from "./components/Menu";
 import TableView from "./views/TableView";
 import SphereView from "./views/SphereView";
-import FelixView from "./views/FelixView";
+import HelixView from "./views/HelixView";
 import GridView from "./views/GridView";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
@@ -17,8 +17,8 @@ function App() {
         return <TableView />;
       case "Sphere":
         return <SphereView />;
-      case "Felix":
-        return <FelixView />;
+      case "Helix":
+        return <HelixView />;
       case "Grid":
         return <GridView />;
       default:

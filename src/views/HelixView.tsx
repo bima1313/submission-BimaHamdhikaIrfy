@@ -2,7 +2,7 @@ import type { FC } from "react";
 import Card from "../components/Card";
 import { periodicData } from "../data/periodicData";
 
-const GridView: FC = () => {
+const HelixView: FC = () => {
   return (
     <group>
       {periodicData.map((el, i) => {
@@ -11,7 +11,7 @@ const GridView: FC = () => {
             key={i}
             periodicItem={el}
             index={i}
-            mode="Grid"
+            mode="Helix"
             totalData={periodicData.length}
           />
         );
@@ -20,4 +20,4 @@ const GridView: FC = () => {
   );
 };
 
-export default GridView;
+export default HelixView;

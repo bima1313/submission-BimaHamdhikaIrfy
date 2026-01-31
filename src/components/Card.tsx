@@ -23,7 +23,7 @@ const Card: FC<props> = ({ periodicItem, index, totalData = 0, mode }) => {
         y: Math.random() * 500 - 250,
         z: Math.random() * 500 - 250,
       });
-      ref.current.position.add(initialPosition);      
+      ref.current.position.add(initialPosition);
       targetPosition.set(
         (periodicItem.posX - 9) * 4,
         -(periodicItem.posY - 5.5) * 5,
@@ -44,12 +44,38 @@ const Card: FC<props> = ({ periodicItem, index, totalData = 0, mode }) => {
 
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
+    } else if (mode === "Helix") {
+      const vector = new THREE.Vector3();
+      const theta = index * 0.175 + Math.PI;
+      const y = -(index * 0.3) + 7.03125;
+
+      const object = new THREE.Object3D();
+
+      object.position.setFromCylindricalCoords(20, theta, y);
+
+      vector.x = object.position.x * 2;
+      vector.y = object.position.y;
+      vector.z = object.position.z * 2;
+
+      object.lookAt(vector);
+      targetPosition.copy(object.position);
+      targetRotation.copy(object.rotation);
+    } else if (mode === "Grid") {
+      const object = new THREE.Object3D();
+
+      object.position.x = (index % 5) * 10 - 15;
+      object.position.y = -(Math.floor(index / 5) % 5) * 10 + 15;
+      object.position.z = Math.floor(index / 25) * 15 - 30;
+
+      targetPosition.copy(object.position);
+      targetRotation.copy(object.rotation);
     }
     gsap.to(ref.current.position, {
       x: targetPosition.x,
       y: targetPosition.y,
       z: targetPosition.z,
       duration: 1.5,
+      ease:"power1.inOut",
       delay: index * 0.005,
     });
     gsap.to(ref.current.rotation, {
@@ -57,6 +83,7 @@ const Card: FC<props> = ({ periodicItem, index, totalData = 0, mode }) => {
       y: targetRotation.y,
       z: targetRotation.z,
       duration: 1.5,
+      ease:"power1.inOut",
       delay: index * 0.005,
     });
   }, [index, mode, periodicItem.posX, periodicItem.posY, totalData]);
