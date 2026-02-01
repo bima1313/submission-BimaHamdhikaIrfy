@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import Menu from "../components/Menu";
 import GridView from "../views/GridView";
-// import HelixView from "../views/HelixView";
+import HelixView from "../views/HelixView";
 import SphereView from "../views/SphereView";
 import TableView from "../views/TableView";
 import { useLocation } from "react-router-dom";
@@ -31,11 +31,11 @@ export default function HomePage() {
       case "Table":
         return <TableView usersData={data} />;
       case "Sphere":
-        return <SphereView usersData={data}/>;
-      // case "Helix":
-      //   return <HelixView />;
+        return <SphereView usersData={data} />;
+      case "Helix":
+        return <HelixView usersData={data} />;
       case "Grid":
-        return <GridView usersData={data}/>;
+        return <GridView usersData={data} />;
       default:
         return <TableView />;
     }

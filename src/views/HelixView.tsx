@@ -1,18 +1,21 @@
 import type { FC } from "react";
 import Card from "../components/Card";
-import { periodicData } from "../data/periodicData";
+import type { UsersData } from "../models/dataUsers";
 
-const HelixView: FC = () => {
+interface props{
+    usersData?: UsersData
+}
+const HelixView: FC<props> = ({usersData}) => {
   return (
     <group>
-      {periodicData.map((el, i) => {
+      {usersData?.data.map((user, index) => {
         return (
           <Card
-            key={i}
-            periodicItem={el}
-            index={i}
+            key={index}
+            userData={user}
+            index={index}
             mode="Helix"
-            totalData={periodicData.length}
+            totalData={usersData.data.length}
           />
         );
       })}

@@ -20,7 +20,7 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
   useLayoutEffect(() => {
     const targetPosition = new THREE.Vector3();
     const targetRotation = new THREE.Euler(0, 0, 0);
-   
+
     if (mode === "Table") {
       const initialPosition = new THREE.Vector3().add({
         x: Math.random() * 500 - 250,
@@ -49,13 +49,20 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
     } else if (mode === "Helix") {
+      const halfData = totalData / 2;
+      const relativeIndex = index % halfData;
       const vector = new THREE.Vector3();
-      const theta = index * 0.175 + Math.PI;
-      const y = -(index * 0.3) + 7.03125;
+
+      const theta = relativeIndex * 0.175;
+      const y = -(relativeIndex * 0.8) + 18.666;
 
       const object = new THREE.Object3D();
 
-      object.position.setFromCylindricalCoords(20, theta, y);
+      if (index < halfData) {
+        object.position.setFromCylindricalCoords(20, theta, y);
+      } else {
+        object.position.setFromCylindricalCoords(20, theta + Math.PI, y);
+      }
 
       vector.x = object.position.x * 2;
       vector.y = object.position.y;
