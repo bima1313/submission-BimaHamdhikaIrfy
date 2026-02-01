@@ -1,16 +1,20 @@
 import type { FC } from "react";
 import Card from "../components/Card";
 import { periodicData } from "../data/periodicData";
+import type { UsersData } from "../models/dataUsers";
 
-const GridView: FC = () => {
+interface props{
+    usersData?: UsersData;
+}
+const GridView: FC<props> = ({usersData}) => {
   return (
     <group>
-      {periodicData.map((el, i) => {
+      {usersData?.data.map((user, index) => {
         return (
           <Card
-            key={i}
-            periodicItem={el}
-            index={i}
+            key={index}
+            userData={user}
+            index={index}
             mode="Grid"
             totalData={periodicData.length}
           />

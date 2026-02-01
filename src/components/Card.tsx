@@ -20,7 +20,7 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
   useLayoutEffect(() => {
     const targetPosition = new THREE.Vector3();
     const targetRotation = new THREE.Euler(0, 0, 0);
-
+   
     if (mode === "Table") {
       const initialPosition = new THREE.Vector3().add({
         x: Math.random() * 500 - 250,
@@ -68,8 +68,8 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
       const object = new THREE.Object3D();
 
       object.position.x = (index % 5) * 10 - 15;
-      object.position.y = -(Math.floor(index / 5) % 5) * 10 + 15;
-      object.position.z = Math.floor(index / 25) * 15 - 30;
+      object.position.y = -(Math.floor(index / 5) % 4) * 8 + 12;
+      object.position.z = Math.floor(index / 20) * 12 - 24;
 
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
@@ -79,7 +79,7 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
       y: targetPosition.y,
       z: targetPosition.z,
       duration: 1.5,
-      ease:"power1.inOut",
+      ease: "power1.inOut",
       delay: index * 0.005,
     });
     gsap.to(ref.current.rotation, {
@@ -87,7 +87,7 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
       y: targetRotation.y,
       z: targetRotation.z,
       duration: 1.5,
-      ease:"power1.inOut",
+      ease: "power1.inOut",
       delay: index * 0.005,
     });
   }, [index, mode, userData.posX, userData.posY, totalData]);
@@ -114,7 +114,7 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
           <div className="w-full h-full text-center mt-1 text-white">
             <div className="w-full flex justify-center">
               <img
-                className="w-[88px] h-[88px] rounded-xs"
+                className="w-[88px] h-[88px] rounded-xs pointer-events-none"
                 src={userData.photo}
                 alt={`${userData.name} Photo`}
               />

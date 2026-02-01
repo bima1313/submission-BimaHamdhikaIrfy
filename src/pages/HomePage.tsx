@@ -2,7 +2,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import Menu from "../components/Menu";
-// import GridView from "../views/GridView";
+import GridView from "../views/GridView";
 // import HelixView from "../views/HelixView";
 import SphereView from "../views/SphereView";
 import TableView from "../views/TableView";
@@ -34,8 +34,8 @@ export default function HomePage() {
         return <SphereView usersData={data}/>;
       // case "Helix":
       //   return <HelixView />;
-      // case "Grid":
-      //   return <GridView />;
+      case "Grid":
+        return <GridView usersData={data}/>;
       default:
         return <TableView />;
     }
