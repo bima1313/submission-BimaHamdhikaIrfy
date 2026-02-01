@@ -2,7 +2,10 @@
 
 @theme {      
    --color-menu: rgba(0, 255, 255, 0.2);
-   --color-detail: rgba(127, 255, 255, 0.75);    
+   --color-detail: rgba(127, 255, 255, 0.75);
+   --color-red-custom: rgba(239, 48, 34, 1);
+   --color-orange-custom: rgba(253, 202, 53, 1);
+   --color-green-custom: rgba(58, 159, 72, 1);
    --color-nw-red-neon:rgba(239, 48, 34, 0.357);
    --color-nw-red-side:rgba(239, 48, 34, 0.25);
    --color-nw-orange-neon:rgba(253, 202, 53, 0.357);

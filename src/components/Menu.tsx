@@ -6,7 +6,8 @@ interface props {
 }
 const Menu: FC<props> = ({ isClick }) => {
   return (
-    <div className="w-full  text-center absolute top-[93%] z-[100000000]">
+    <>
+    <div className="w-full text-center absolute top-[93%] z-[100000000]">
       <ul className="flex gap-2 justify-center">
         {buttonName.map((button, index) => {
           return (
@@ -21,6 +22,12 @@ const Menu: FC<props> = ({ isClick }) => {
         })}
       </ul>
     </div>
+      <div className="w-full absolute top-[93%] z-[100000000] flex justify-end gap-3 pr-8">
+        <span className="uppercase text-white">low</span>
+        <div className="w-[232px] h-4 bg-linear-to-r from-red-custom via-orange-custom to-green-custom mt-[5px] rounded-md"></div>
+        <span className="uppercase text-white">high</span>
+      </div>
+    </>
   );
 };
 
