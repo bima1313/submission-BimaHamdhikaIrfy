@@ -1,18 +1,20 @@
 import type { FC } from "react";
-import { periodicData } from "../data/periodicData";
 import Card from "../components/Card";
-
-const SphereView: FC = () => {
+import type { UsersData } from "../models/dataUsers";
+interface props{
+    usersData?: UsersData
+}
+const SphereView: FC<props> = ({usersData}) => {
   return (
     <group>
-      {periodicData.map((el, i) => {
+      {usersData?.data.map((user, index) => {
         return (
           <Card
-            key={i}
-            periodicItem={el}
-            index={i}
+            key={index}
+            userData={user}
+            index={index}
             mode="Sphere"
-            totalData={periodicData.length}
+            totalData={usersData.data.length}
           />
         );
       })}

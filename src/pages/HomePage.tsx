@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Menu from "../components/Menu";
 // import GridView from "../views/GridView";
 // import HelixView from "../views/HelixView";
-// import SphereView from "../views/SphereView";
+import SphereView from "../views/SphereView";
 import TableView from "../views/TableView";
 import { useLocation } from "react-router-dom";
 import RedirectPage from "./RedirectPage";
@@ -30,8 +30,8 @@ export default function HomePage() {
     switch (view) {
       case "Table":
         return <TableView usersData={data} />;
-      // case "Sphere":
-      //   return <SphereView />;
+      case "Sphere":
+        return <SphereView usersData={data}/>;
       // case "Helix":
       //   return <HelixView />;
       // case "Grid":
