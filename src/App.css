@@ -1,65 +1,39 @@
 @import "tailwindcss";
 
-@theme {
-   --color-neon: rgba(0, 127, 127, 0.357);
+@theme {      
    --color-menu: rgba(0, 255, 255, 0.2);
-   --color-detail: rgba(127, 255, 255, 0.75);
-   --color-symbol: rgba(255, 255, 255, 0.75);
-   --text-shadow-symbol: rgba(0, 255, 255, 0.95);
-   --color-side-neon:rgba(127, 255, 255, 0.25);   
+   --color-detail: rgba(127, 255, 255, 0.75);    
+   --color-nw-red-neon:rgba(239, 48, 34, 0.357);
+   --color-nw-red-side:rgba(239, 48, 34, 0.25);
+   --color-nw-orange-neon:rgba(253, 202, 53, 0.357);
+   --color-nw-orange-side:rgba(253, 202, 53, 0.25);
+   --color-nw-green-neon:rgba(58, 159, 72, 0.357);
+   --color-nw-green-side:rgba(58, 159, 72, 0.25);
 }
 
-.custom-text-shadow{
-  text-shadow: 0px 0px 10px  var(--text-shadow-symbol);
+/* Red Net Worth */
+.nw-red-shadow{
+  box-shadow: rgba(239, 48, 34, 0.75) 0px 0px 12px 0px;
+}
+.nw-red-hover:hover{
+  box-shadow: 0px 0px 12px rgba(239, 48, 34, 1);
+  border: 1px solid rgba(239, 48, 34, 0.8);
 }
 
-.custom-box-shadow{
-  box-shadow: rgba(0, 255, 255, 0.5) 0px 0px 12px 0px;
+/* orange Net Worth */
+.nw-orange-shadow{
+  box-shadow: rgba(253, 202, 53, 0.75) 0px 0px 12px 0px;
+}
+.nw-orange-hover:hover{
+  box-shadow: 0px 0px 12px rgba(253, 202, 53, 1);
+  border: 1px solid rgba(253, 202, 53, 0.8);
 }
 
-.on-hover:hover {
-        box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
-        border: 1px solid rgba(127, 255, 255, 0.75);
+/* green Net Worth */
+.nw-green-shadow{
+  box-shadow: rgba(58, 159, 72, 0.75) 0px 0px 12px 0px;
 }
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.nw-green-hover:hover{
+  box-shadow: 0px 0px 12px rgba(58, 159, 72, 1);
+  border: 1px solid rgba(58, 159, 72, 0.8);
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */

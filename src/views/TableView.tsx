@@ -1,12 +1,18 @@
-import { periodicData } from "../data/periodicData";
+import type { UsersData } from "../models/dataUsers";
+import type { FC } from "react";
 import Card from "../components/Card";
-
-export default function TableView() {
+interface props {
+  usersData?: UsersData;
+}
+const TableView: FC<props> = ({ usersData }) => {
   return (
     <group>
-      {periodicData.map((el, i) => {
-        return <Card key={i} periodicItem={el} index={i} mode="Table" />;
+      {usersData?.data.map((user, index) => {
+        return (
+          <Card key={index} userData={user} index={index} mode="Table" />
+        );
       })}
     </group>
   );
-}
+};
+export default TableView;
