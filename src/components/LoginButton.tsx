@@ -13,11 +13,11 @@ const LoginButton: FC = () => {
   });
   return (
     <button
-      className="bg-black h-10 flex items-center-safe mt-4 rounded-full"
+      className="bg-black h-10 flex items-center-safe mt-4 rounded-full cursor-pointer"
       onClick={() => login()}
     >
       <div className="ml-3 mr-[10px] w-9 h-9 rounded-full flex items-center justify-center">
-        <img className="w-5 h-5" src="public\Google_logo.svg" />
+        <img className="w-5 h-5" src="/Google_logo.svg" />
       </div>
       <span className="text-base mr-3 text-white">Sign in with Google</span>
     </button>
