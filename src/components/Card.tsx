@@ -5,7 +5,7 @@ import gsap from "gsap";
 import * as THREE from "three";
 import type { UserData } from "../models/dataUsers";
 import clsx from "clsx";
-import { Currency } from "../constants/currency";
+import { Currency } from "../constants/Currency";
 interface props {
   index: number;
   userData: UserData;
