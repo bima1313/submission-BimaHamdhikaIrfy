@@ -6,6 +6,10 @@ import * as THREE from "three";
 import type { UserData } from "../models/dataUsers";
 import clsx from "clsx";
 import { Currency } from "../constants/Currency";
+import tableCoordinate from "../utils/tableCoordinate";
+import sphereCoordinate from "../utils/sphereCoordinate";
+import helixCoordinate from "../utils/helixCoordinate";
+import gridCoordinate from "../utils/gridCoordinate";
 interface props {
   index: number;
   userData: UserData;
@@ -22,61 +26,27 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
     const targetRotation = new THREE.Euler(0, 0, 0);
 
     if (mode === "Table") {
-      const initialPosition = new THREE.Vector3().add({
-        x: Math.random() * 500 - 250,
-        y: Math.random() * 500 - 250,
-        z: Math.random() * 500 - 250,
-      });
-      ref.current.position.add(initialPosition);
-      targetPosition.set(
-        (userData.posX - 9) * 4,
-        -(userData.posY - 5.5) * 5,
-        0,
+      const { position, rotation } = tableCoordinate(
+        userData,
+        ref,
+        targetPosition,
+        targetRotation,
       );
-      targetRotation.set(0, 0, 0);
+
+      targetPosition.copy(position);
+      targetRotation.copy(rotation);
     } else if (mode === "Sphere") {
-      const vector = new THREE.Vector3();
-      const object = new THREE.Object3D();
-      const phi = Math.acos(-1 + (2 * index) / totalData);
-      const theta = Math.sqrt(totalData * Math.PI) * phi;
-
-      object.position.setFromSphericalCoords(20, phi, theta);
-
-      vector.copy(object.position).multiplyScalar(2);
-
-      object.lookAt(vector);
+      const object = sphereCoordinate(index, totalData);
 
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
     } else if (mode === "Helix") {
-      const halfData = totalData / 2;
-      const relativeIndex = index % halfData;
-      const vector = new THREE.Vector3();
-
-      const theta = relativeIndex * 0.175;
-      const y = -(relativeIndex * 0.8) + 18.666;
-
-      const object = new THREE.Object3D();
-
-      if (index < halfData) {
-        object.position.setFromCylindricalCoords(20, theta, y);
-      } else {
-        object.position.setFromCylindricalCoords(20, theta + Math.PI, y);
-      }
-
-      vector.x = object.position.x * 2;
-      vector.y = object.position.y;
-      vector.z = object.position.z * 2;
-
-      object.lookAt(vector);
+      const object = helixCoordinate(index, totalData);
+      
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
     } else if (mode === "Grid") {
-      const object = new THREE.Object3D();
-
-      object.position.x = (index % 5) * 10 - 15;
-      object.position.y = -(Math.floor(index / 5) % 4) * 8 + 12;
-      object.position.z = Math.floor(index / 20) * 12 - 24;
+      const object = gridCoordinate(index);
 
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
@@ -97,7 +67,7 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
       ease: "power1.inOut",
       delay: index * 0.005,
     });
-  }, [index, mode, userData.posX, userData.posY, totalData]);
+  }, [index, mode, userData.posX, userData.posY, totalData, userData]);
   return (
     <group key={index} ref={ref}>
       <Html transform>
