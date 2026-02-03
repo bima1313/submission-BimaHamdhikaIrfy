@@ -10,9 +10,11 @@ import { useLocation } from "react-router-dom";
 import RedirectPage from "./RedirectPage";
 import usersService from "../services/usersService";
 import type { UsersData } from "../models/dataUsers";
+import Loading from "../components/Loading";
 
 export default function HomePage() {
   const hasFetched = useRef(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<UsersData>();
   const [view, setView] = useState("Table");
   const location = useLocation();
@@ -20,6 +22,7 @@ export default function HomePage() {
     const fetchData = async () => {
       const response = await usersService(location.state);
       setData(response);
+      setIsLoading(false);
     };
     if (!hasFetched.current && location.state) {
       fetchData();
@@ -46,7 +49,7 @@ export default function HomePage() {
         <div className="w-full h-screen bg-black">
           <Canvas camera={{ position: [0, 0, 40], fov: 70 }}>
             <color attach="background" args={["#050505"]} />
-            {renderView()}
+            {isLoading ? <Loading /> : renderView()}
             <OrbitControls />
           </Canvas>
           <Menu isClick={setView} />
