@@ -7,14 +7,14 @@ interface props{
 const SphereView: FC<props> = ({usersData}) => {
   return (
     <group>
-      {usersData?.data.map((user, index) => {
+      {usersData?.items.map((user, index) => {
         return (
           <Card
             key={index}
             userData={user}
             index={index}
             mode="Sphere"
-            totalData={usersData.data.length}
+            totalData={usersData.items.length}
           />
         );
       })}

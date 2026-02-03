@@ -1,5 +1,5 @@
 export type UsersData = {
-  data: UserData[];
+  items: UserData[];
 };
 
 export type UserData = {
