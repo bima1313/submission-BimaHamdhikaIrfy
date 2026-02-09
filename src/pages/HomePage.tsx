@@ -9,19 +9,21 @@ import TableView from "../views/TableView";
 import { useLocation } from "react-router-dom";
 import RedirectPage from "./RedirectPage";
 import usersService from "../services/usersService";
-import type { UsersData } from "../models/dataUsers";
 import Loading from "../components/Loading";
+import type { ServiceResponse } from "../models/generic";
+import EmptyView from "../views/EmptyView";
+import ErrorView from "../views/ErrorView";
 
 export default function HomePage() {
   const hasFetched = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<UsersData>();
+  const [serviceResponse, setServiceResponse] = useState<ServiceResponse>();
   const [view, setView] = useState("Table");
   const location = useLocation();
   useEffect(() => {
     const fetchData = async () => {
       const response = await usersService(location.state);
-      setData(response);
+      setServiceResponse(response);
       setIsLoading(false);
     };
     if (!hasFetched.current && location.state) {
@@ -30,17 +32,23 @@ export default function HomePage() {
     }
   });
   const renderView = () => {
-    switch (view) {
-      case "Table":
-        return <TableView usersData={data} />;
+    const usersData = serviceResponse?.data;
+    const items = usersData?.items ?? [];
+    if (serviceResponse?.error != null) {
+      return <ErrorView error={serviceResponse.error} />;
+    }
+    if (items.length == 0) {
+      return <EmptyView />;
+    }
+    switch (view) {  
       case "Sphere":
-        return <SphereView usersData={data} />;
+        return <SphereView usersData={usersData} />;
       case "Helix":
-        return <HelixView usersData={data} />;
+        return <HelixView usersData={usersData} />;
       case "Grid":
-        return <GridView usersData={data} />;
+        return <GridView usersData={usersData} />;      
       default:
-        return <TableView />;
+        return <TableView usersData={usersData} />;
     }
   };
   return (

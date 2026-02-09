@@ -1,7 +1,10 @@
+import type { Error } from "./generic";
+
 export type DataSheet = {
   majorDimension: string;
   range: string;
   values: Data[];
+  error: Error;
 };
 
 type Data = {
