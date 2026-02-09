@@ -11,4 +11,6 @@ export type UserData = {
   net_worth: string;
   posX: number;
   posY: number;
+  posZ?: number;
+  faces?: number;
 };

@@ -10,6 +10,7 @@ import tableCoordinate from "../utils/tableCoordinate";
 import sphereCoordinate from "../utils/sphereCoordinate";
 import helixCoordinate from "../utils/helixCoordinate";
 import gridCoordinate from "../utils/gridCoordinate";
+import tetrahdronCoordinate from "../test/components/tetrahedronCoordinate";
 interface props {
   index: number;
   userData: UserData;
@@ -48,6 +49,11 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
     } else if (mode === "Grid") {
       const object = gridCoordinate(index);
 
+      targetPosition.copy(object.position);
+      targetRotation.copy(object.rotation);
+    } else if (mode === "Tetrahedron"){
+      const object = tetrahdronCoordinate(userData);
+            
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
     }

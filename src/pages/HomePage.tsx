@@ -13,6 +13,7 @@ import Loading from "../components/Loading";
 import type { ServiceResponse } from "../models/generic";
 import EmptyView from "../views/EmptyView";
 import ErrorView from "../views/ErrorView";
+import TetrahedronView from "../views/TetrahedronView";
 
 export default function HomePage() {
   const hasFetched = useRef(false);
@@ -46,7 +47,9 @@ export default function HomePage() {
       case "Helix":
         return <HelixView usersData={usersData} />;
       case "Grid":
-        return <GridView usersData={usersData} />;      
+        return <GridView usersData={usersData} />;
+      case "Tetrahedron":
+        return <TetrahedronView usersData={usersData!} />;
       default:
         return <TableView usersData={usersData} />;
     }
