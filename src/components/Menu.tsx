@@ -1,6 +1,13 @@
 import type { Dispatch, FC, SetStateAction } from "react";
+import { Mode } from "../constants/Mode";
 
-const buttonName = ["Table", "Sphere", "Helix", "Grid", "Tetrahedron"];
+const buttonName = [
+  Mode.TABLE,
+  Mode.SPHERE,
+  Mode.HELIX,
+  Mode.GRID,
+  Mode.TETRAHEDRON,
+];
 interface props {
   isClick: Dispatch<SetStateAction<string>>;
 }

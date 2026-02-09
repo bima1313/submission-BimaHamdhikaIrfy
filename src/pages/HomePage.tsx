@@ -14,12 +14,13 @@ import type { ServiceResponse } from "../models/generic";
 import EmptyView from "../views/EmptyView";
 import ErrorView from "../views/ErrorView";
 import TetrahedronView from "../views/TetrahedronView";
+import { Mode } from "../constants/Mode";
 
 export default function HomePage() {
   const hasFetched = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
   const [serviceResponse, setServiceResponse] = useState<ServiceResponse>();
-  const [view, setView] = useState("Table");
+  const [view, setView] = useState(Mode.TABLE);
   const location = useLocation();
   useEffect(() => {
     const fetchData = async () => {
@@ -41,14 +42,14 @@ export default function HomePage() {
     if (items.length == 0) {
       return <EmptyView />;
     }
-    switch (view) {  
-      case "Sphere":
+    switch (view) {
+      case Mode.SPHERE:
         return <SphereView usersData={usersData} />;
-      case "Helix":
+      case Mode.HELIX:
         return <HelixView usersData={usersData} />;
-      case "Grid":
+      case Mode.GRID:
         return <GridView usersData={usersData} />;
-      case "Tetrahedron":
+      case Mode.TETRAHEDRON:
         return <TetrahedronView usersData={usersData!} />;
       default:
         return <TableView usersData={usersData} />;

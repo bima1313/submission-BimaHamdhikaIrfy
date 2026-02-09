@@ -1,11 +1,12 @@
 import type { FC } from "react";
 import Card from "../components/Card";
 import type { UsersData } from "../models/dataUsers";
+import { Mode } from "../constants/Mode";
 
-interface props{
-    usersData?: UsersData
+interface props {
+  usersData?: UsersData;
 }
-const HelixView: FC<props> = ({usersData}) => {
+const HelixView: FC<props> = ({ usersData }) => {
   return (
     <group>
       {usersData?.items.map((user, index) => {
@@ -14,7 +15,7 @@ const HelixView: FC<props> = ({usersData}) => {
             key={index}
             userData={user}
             index={index}
-            mode="Helix"
+            mode={Mode.HELIX}
             totalData={usersData.items.length}
           />
         );

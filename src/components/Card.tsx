@@ -10,7 +10,9 @@ import tableCoordinate from "../utils/tableCoordinate";
 import sphereCoordinate from "../utils/sphereCoordinate";
 import helixCoordinate from "../utils/helixCoordinate";
 import gridCoordinate from "../utils/gridCoordinate";
-import tetrahdronCoordinate from "../test/components/tetrahedronCoordinate";
+import tetrahdronCoordinate from "../utils/tetrahedronCoordinate";
+import { Mode } from "../constants/Mode";
+
 interface props {
   index: number;
   userData: UserData;
@@ -26,7 +28,7 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
     const targetPosition = new THREE.Vector3();
     const targetRotation = new THREE.Euler(0, 0, 0);
 
-    if (mode === "Table") {
+    if (mode === Mode.TABLE) {
       const { position, rotation } = tableCoordinate(
         userData,
         ref,
@@ -36,24 +38,24 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
 
       targetPosition.copy(position);
       targetRotation.copy(rotation);
-    } else if (mode === "Sphere") {
+    } else if (mode === Mode.SPHERE) {
       const object = sphereCoordinate(index, totalData);
 
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
-    } else if (mode === "Helix") {
+    } else if (mode === Mode.HELIX) {
       const object = helixCoordinate(index, totalData);
-      
+
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
-    } else if (mode === "Grid") {
+    } else if (mode === Mode.GRID) {
       const object = gridCoordinate(index);
 
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
-    } else if (mode === "Tetrahedron"){
+    } else if (mode === Mode.TETRAHEDRON) {
       const object = tetrahdronCoordinate(userData);
-            
+
       targetPosition.copy(object.position);
       targetRotation.copy(object.rotation);
     }
