@@ -2,10 +2,6 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import Menu from "../components/Menu";
-import GridView from "../views/GridView";
-import HelixView from "../views/HelixView";
-import SphereView from "../views/SphereView";
-import TableView from "../views/TableView";
 import { useLocation } from "react-router-dom";
 import RedirectPage from "./RedirectPage";
 import usersService from "../services/usersService";
@@ -13,8 +9,8 @@ import Loading from "../components/Loading";
 import type { ServiceResponse } from "../models/generic";
 import EmptyView from "../views/EmptyView";
 import ErrorView from "../views/ErrorView";
-import TetrahedronView from "../views/TetrahedronView";
 import { Mode } from "../constants/Mode";
+import { ViewMap } from "../views/viewRegistry";
 
 export default function HomePage() {
   const hasFetched = useRef(false);
@@ -39,21 +35,11 @@ export default function HomePage() {
     if (serviceResponse?.error != null) {
       return <ErrorView error={serviceResponse.error} />;
     }
-    if (items.length == 0) {
+    if (!usersData || items.length == 0) {
       return <EmptyView />;
     }
-    switch (view) {
-      case Mode.SPHERE:
-        return <SphereView usersData={usersData} />;
-      case Mode.HELIX:
-        return <HelixView usersData={usersData} />;
-      case Mode.GRID:
-        return <GridView usersData={usersData} />;
-      case Mode.TETRAHEDRON:
-        return <TetrahedronView usersData={usersData!} />;
-      default:
-        return <TableView usersData={usersData} />;
-    }
+    const ActiveView = ViewMap[view];
+    return <ActiveView usersData={usersData} />;
   };
   return (
     <>
