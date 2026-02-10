@@ -6,20 +6,15 @@ import * as THREE from "three";
 import type { UserData } from "../models/dataUsers";
 import clsx from "clsx";
 import { Currency } from "../constants/Currency";
-import tableCoordinate from "../utils/tableCoordinate";
-import sphereCoordinate from "../utils/sphereCoordinate";
-import helixCoordinate from "../utils/helixCoordinate";
-import gridCoordinate from "../utils/gridCoordinate";
-import tetrahdronCoordinate from "../utils/tetrahedronCoordinate";
 import { Mode } from "../constants/Mode";
 
 interface props {
   index: number;
   userData: UserData;
-  totalData?: number;
   mode: string;
+  coordinateFunc: () => THREE.Object3D<Object3DEventMap>;
 }
-const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
+const Card: FC<props> = ({ userData, index, mode, coordinateFunc }) => {
   const ref = useRef<Group<Object3DEventMap>>(null!);
   const currency = userData.net_worth.slice(1);
   const remove_comma = currency.split(",").join("");
@@ -29,36 +24,18 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
     const targetRotation = new THREE.Euler(0, 0, 0);
 
     if (mode === Mode.TABLE) {
-      const { position, rotation } = tableCoordinate(
-        userData,
-        ref,
-        targetPosition,
-        targetRotation,
-      );
-
-      targetPosition.copy(position);
-      targetRotation.copy(rotation);
-    } else if (mode === Mode.SPHERE) {
-      const object = sphereCoordinate(index, totalData);
-
-      targetPosition.copy(object.position);
-      targetRotation.copy(object.rotation);
-    } else if (mode === Mode.HELIX) {
-      const object = helixCoordinate(index, totalData);
-
-      targetPosition.copy(object.position);
-      targetRotation.copy(object.rotation);
-    } else if (mode === Mode.GRID) {
-      const object = gridCoordinate(index);
-
-      targetPosition.copy(object.position);
-      targetRotation.copy(object.rotation);
-    } else if (mode === Mode.TETRAHEDRON) {
-      const object = tetrahdronCoordinate(userData);
-
-      targetPosition.copy(object.position);
-      targetRotation.copy(object.rotation);
+      const initialPosition = new THREE.Vector3().add({
+        x: Math.random() * 500 - 250,
+        y: Math.random() * 500 - 250,
+        z: Math.random() * 500 - 250,
+      });
+      ref.current.position.add(initialPosition);
     }
+    const object = coordinateFunc();
+
+    targetPosition.copy(object.position);
+    targetRotation.copy(object.rotation);
+
     gsap.to(ref.current.position, {
       x: targetPosition.x,
       y: targetPosition.y,
@@ -75,7 +52,7 @@ const Card: FC<props> = ({ userData, index, totalData = 0, mode }) => {
       ease: "power1.inOut",
       delay: index * 0.005,
     });
-  }, [index, mode, userData.posX, userData.posY, totalData, userData]);
+  }, [index, mode, coordinateFunc]);
   return (
     <group key={index} ref={ref}>
       <Html transform>
